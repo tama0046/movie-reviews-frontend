@@ -14,7 +14,7 @@
 
 **Member:** Saskar Baniya (bani0029) - [@bani0029](https://github.com/bani0029)
 
-**Member:** Roland Park (park0625) - [@park0625](https://github.com/park0625)
+**Member:** Roland Parker (park0625) - [@park0625](https://github.com/park0625)
 
 ## Technologies Used
 
