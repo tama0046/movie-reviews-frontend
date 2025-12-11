@@ -54,7 +54,13 @@ onUnmounted(() => {
 
 <style scoped>
 .navbar {
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
+  background: #0f0f0f !important;
+  border-bottom: 1px solid #333;
+}
+
+.navbar.scrolled {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .netflix-logo {

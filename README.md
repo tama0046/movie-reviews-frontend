@@ -1,4 +1,4 @@
-# Movie Reviews - Vue Frontend 🎬
+# Movie Reviews - Vue Frontend
 
 > A modern Vue 3 frontend application for our Interactive Media Design movie review website project, connected to a Strapi headless CMS backend.
 
@@ -7,7 +7,7 @@
 **Assignment:** Headless CMS Review Site  
 **Course:** Interactive Media Design - Algonquin College  
 **Due Date:** December 11, 2025  
-**Status:** ✅ Complete
+**Status:** Complete
 
 ## Team Members
 
@@ -29,45 +29,29 @@
 
 ## Features
 
-✨ **Core Features:**
-- 🎥 Display list of movie reviews with beautiful cards
-- 🔍 Real-time search functionality (by title, genre, synopsis)
-- 📝 Individual movie review pages with detailed information
-- ⭐ Rating system with visual indicators
-- 📱 Fully responsive design (mobile, tablet, desktop)
-- 🎨 Modern gradient UI with smooth animations
-- 🚀 Fast page loads with Vite
+**Core Features:**
+- Display list of movie reviews with beautiful cards
+- Real-time search functionality by title, genre, and synopsis
+- Individual movie review pages with detailed information
+- Rating system with visual indicators
+- Fully responsive design for mobile, tablet, and desktop
+- Modern gradient UI with smooth animations
+- Fast page loads with Vite
 
 **Pages:**
-- **Home Page:** Grid layout of all movie reviews with search
-- **Movie Detail Page:** Complete review with poster, rating, synopsis, and full review
+- Home Page: Grid layout of all movie reviews with search functionality
+- Movie Detail Page: Complete review with poster, rating, synopsis, and full review content
 
 ## Project Structure
 
-```
-movie-reviews-frontend/
-├── src/
-│   ├── components/
-│   │   ├── Navbar.vue        # Site navigation
-│   │   ├── Footer.vue        # Site footer with team info
-│   │   └── MovieCard.vue     # Movie card component
-│   ├── views/
-│   │   ├── Home.vue          # Home page with movie grid
-│   │   └── MovieDetail.vue   # Individual movie page
-│   ├── services/
-│   │   └── api.js            # API service for Strapi backend
-│   ├── router/
-│   │   └── index.js          # Vue Router configuration
-│   ├── App.vue               # Root component
-│   ├── main.js               # Application entry point
-│   └── style.css             # Global styles
-├── public/                   # Static assets
-├── index.html                # HTML template
-├── vite.config.js           # Vite configuration
-├── package.json             # Dependencies
-└── .env                     # Environment variables
+The project is organized into the following directories:
 
-```
+- src/components - Reusable Vue components (Navbar, Footer, MovieCard)
+- src/views - Page components (Home, MovieDetail)
+- src/services - API service for backend communication
+- src/router - Vue Router configuration
+- public - Static assets
+- Root files include index.html, vite.config.js, and package.json
 
 ## Setup Instructions
 
@@ -171,4 +155,4 @@ This project is created for educational purposes as part of the Interactive Medi
 
 **Backend Repository:** https://github.com/tama0046/movie-reviews-cms
 
-**Made with ❤️ by the Movie Reviews Team** 
+**Created by the Movie Reviews Team** 

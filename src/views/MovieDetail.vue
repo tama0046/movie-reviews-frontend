@@ -14,11 +14,7 @@ const fetchMovie = async () => {
   try {
     loading.value = true
     error.value = null
-    console.log('Fetching movie with ID:', route.params.id)
     movie.value = await movieService.getMovieById(route.params.id)
-    console.log('Movie data:', movie.value)
-    console.log('Review structure:', movie.value?.review)
-    console.log('Review type:', typeof movie.value?.review)
   } catch (err) {
     error.value = 'Failed to load movie details. Please try again.'
     console.error(err)

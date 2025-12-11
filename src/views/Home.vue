@@ -58,23 +58,22 @@ onMounted(() => {
           
           <!-- Search Bar -->
           <div class="search-container mx-auto">
-            <div class="input-group">
+            <div class="input-group shadow-lg">
               <input 
                 v-model="searchQuery"
                 type="text" 
                 class="form-control form-control-lg" 
-                placeholder="Search for a movie..."
-                @keyup.enter="fetchMovies"
+                placeholder="Search movies by title or review..."
               >
               <button 
                 v-if="searchQuery"
-                class="btn btn-outline-light" 
+                class="btn btn-outline-danger" 
                 type="button"
                 @click="clearSearch"
               >
                 <i class="bi bi-x-lg"></i>
               </button>
-              <button class="btn btn-primary btn-lg" type="button">
+              <button class="btn btn-danger btn-lg" type="button">
                 <i class="bi bi-search"></i>
               </button>
             </div>
@@ -86,19 +85,24 @@ onMounted(() => {
     <!-- Main Content -->
     <main class="container mb-5 pt-4">
       <!-- Loading State -->
-      <div v-if="loading" class="loading-spinner">
+      <div v-if="loading" class="text-center py-5">
         <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;">
           <span class="visually-hidden">Loading...</span>
         </div>
+        <p class="mt-3 text-white">Loading movies...</p>
       </div>
 
       <!-- Error State -->
-      <div v-else-if="error" class="alert alert-danger bg-dark border-danger text-white" role="alert">
-        <i class="bi bi-exclamation-triangle-fill me-2"></i>
-        {{ error }}
-        <button @click="fetchMovies" class="btn btn-sm btn-danger ms-3">
-          <i class="bi bi-arrow-clockwise"></i> Retry
-        </button>
+      <div v-else-if="error" class="text-center py-5">
+        <div class="alert alert-danger d-inline-block" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          {{ error }}
+        </div>
+        <div>
+          <button @click="fetchMovies" class="btn btn-danger">
+            <i class="bi bi-arrow-clockwise me-2"></i>Try Again
+          </button>
+        </div>
       </div>
 
       <!-- No Results -->
@@ -136,57 +140,27 @@ onMounted(() => {
 
 <style scoped>
 .hero-section {
-  min-height: 80vh;
+  min-height: 70vh;
   display: flex;
   align-items: center;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-}
-
-.hero-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(234, 88, 118, 0.3), transparent 50%);
-  animation: pulse 8s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-.hero-section::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 150px;
-  background: linear-gradient(to bottom, transparent, #0f0c29);
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 3rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .hero-content {
-  position: relative;
-  z-index: 2;
   width: 100%;
 }
 
 .netflix-title {
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-  line-height: 1.1;
+  line-height: 1.2;
+  color: white;
 }
 
 .netflix-subtitle {
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
   max-width: 700px;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  color: #ccc;
 }
 
 .search-container {
@@ -194,22 +168,32 @@ onMounted(() => {
 }
 
 .search-container .form-control {
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: white;
+  border: none;
   color: #1a1a1a;
   font-weight: 500;
+  padding: 1rem 1.5rem;
 }
 
 .search-container .form-control::placeholder {
-  color: #666;
-  opacity: 1;
+  color: #999;
 }
 
 .search-container .form-control:focus {
   background: white;
-  border-color: #667eea;
-  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+  border: none;
+  box-shadow: none;
   color: #1a1a1a;
+}
+
+.btn-danger {
+  background: #e50914;
+  border: none;
+  padding: 0.5rem 1.5rem;
+}
+
+.btn-danger:hover {
+  background: #f40612;
 }
 
 .empty-state {
