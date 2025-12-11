@@ -32,6 +32,10 @@
 - Responsive design
 - Site-wide navigation
 
+## Frontend Sitemap
+
+Researching
+
 ## Setup Instructions
 
 ```bash
