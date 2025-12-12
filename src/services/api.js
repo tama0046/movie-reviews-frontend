@@ -1,14 +1,16 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337'
-const USE_STATIC_DATA = import.meta.env.VITE_USE_STATIC_DATA === 'true' || import.meta.env.MODE === 'production'
+
+// ALWAYS use static data on GitHub Pages - no backend needed!
+const isGitHubPages = typeof window !== 'undefined' && window.location.hostname.includes('github.io')
 
 export const movieService = {
   // Get all movies with optional search
   async getMovies(search = '') {
     try {
-      // In production, use static JSON file
-      if (USE_STATIC_DATA) {
-        const baseUrl = import.meta.env.BASE_URL || '/'
-        const response = await fetch(`${baseUrl}data/movies.json`)
+      // On GitHub Pages, ALWAYS use static JSON file
+      if (isGitHubPages) {
+        console.log('Using static data from GitHub Pages')
+        const response = await fetch('/movie-reviews-frontend/data/movies.json')
         if (!response.ok) {
           throw new Error('Failed to fetch movies')
         }
@@ -16,10 +18,12 @@ export const movieService = {
         let movies = data.data
         
         // Filter by search if provided
+        // Support both Strapi v4 (attributes) and v5 (direct properties) formats
         if (search) {
-          movies = movies.filter(movie => 
-            movie.attributes.title.toLowerCase().includes(search.toLowerCase())
-          )
+          movies = movies.filter(movie => {
+            const title = movie.title || movie.attributes?.title || ''
+            return title.toLowerCase().includes(search.toLowerCase())
+          })
         }
         return movies
       }
@@ -47,10 +51,10 @@ export const movieService = {
   // Get a single movie by ID
   async getMovieById(id) {
     try {
-      // In production, use static JSON file
-      if (USE_STATIC_DATA) {
-        const baseUrl = import.meta.env.BASE_URL || '/'
-        const response = await fetch(`${baseUrl}data/movies.json`)
+      // On GitHub Pages, ALWAYS use static JSON file
+      if (isGitHubPages) {
+        console.log('Getting movie by ID from static data')
+        const response = await fetch('/movie-reviews-frontend/data/movies.json')
         if (!response.ok) {
           throw new Error('Failed to fetch movie')
         }
@@ -72,23 +76,38 @@ export const movieService = {
     }
   },
 
-  // Helper to get image URL
+  // Helper to get image URL (supports Strapi v4 and v5 formats)
   getImageUrl(image) {
     if (!image) return null
     
-    // Handle direct image object (no .data wrapper)
+    // Handle different image object structures
     let url = null
+    
+    // Strapi v5 format: direct url property
     if (image.url) {
       url = image.url
-    } else if (image.data && image.data.attributes) {
+    }
+    // Strapi v4 format: nested under data.attributes
+    else if (image.data && image.data.attributes) {
       url = image.data.attributes.url
-    } else if (image.attributes) {
+    }
+    // Alternative v4 format: nested under attributes
+    else if (image.attributes) {
       url = image.attributes.url
     }
     
     if (!url) return null
     
-    // If URL starts with '/', it's relative to the API
+    // On GitHub Pages, serve images from /movie-reviews-frontend/uploads/
+    if (isGitHubPages) {
+      // Convert /uploads/image.webp to /movie-reviews-frontend/uploads/image.webp
+      if (url.startsWith('/uploads/')) {
+        return `/movie-reviews-frontend${url}`
+      }
+      return url
+    }
+    
+    // Development mode - use API URL for relative paths
     if (url.startsWith('/')) {
       return `${API_URL}${url}`
     }
